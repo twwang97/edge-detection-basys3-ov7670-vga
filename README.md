@@ -2,9 +2,8 @@
 
 * Title: **Real‑time FPGA edge detection pipeline on a Basys 3 using an OV7670 camera and VGA output**
 * FPGA board Basys 3:  [Manual](https://digilent.com/reference/programmable-logic/basys-3/reference-manual) | [PDF](https://digilent.com/reference/_media/basys3:%20basys3_rm.pdf) | [JTAG-HS2](https://digilent.com/reference/_media/jtag_hs2:jtag-hs2_rm.pdf) | [Schematic](https://digilent.com/reference/_media/reference/programmable-logic/basys-3/basys-3_sch.pdf) | [Pinouts](https://www.nhn.ou.edu/~bumm/ELAB/Labs/Basys3_FGPA_pin_outs.pdf) | [XDC](https://digilent.com/reference/_media/basys3/basys3_master.zip)
-* Camera: `OV7670` ([RGB565](./rtl/ov7670/ov7670_register_table.v#L45) is selected).
+* Camera: `OV7670` (default settings with 320x240@30fps and [RGB565](./rtl/ov7670/ov7670_register_table.v#L45)).
 * Vivado Version: `2025.2`.
-![picture_weighted_edge_detection](./img/weighted_edge.jpg)
 
 ---
 
@@ -17,7 +16,9 @@ In this project, four modes are presented:
 * `Mode 2`: Sobel Edge
 * `Mode 3`: Weighted Edge Detection
 
-(Detection in Mode 3 is better)
+(Edges in `Mode 3` are clear)
+
+![picture_weighted_edge_detection](./img/weighted_edge.jpg)
 
 ---
 
