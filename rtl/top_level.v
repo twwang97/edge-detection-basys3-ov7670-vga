@@ -1,34 +1,38 @@
 `timescale 1ns/1ns
 module top_level(
-  input  wire        clk,            // system clock (100 MHz)
+  input  wire        clk,             // system clock (100 MHz)
   input  wire        reset,
-  // input from OV7670
-  input  wire        pclk,           // camera pixel clock
-  input  wire        vsync,          // camera frame signal
-  input  wire        href,           // camera pixel valid 
-  input  wire [7:0]  camera_data,         // camera D-data
+
   // input from switches
   input  wire        simple_vga_flag, // To skip ov7670 setup and test VGA
   input  wire [3:0]  switch_state,    // four switches
-  // output to LED light
-  // output wire [5:0]  led_states, // debugging purpose
-  // output to 7-segment display
-  output wire [6:0]  hex7seg_pins,
-  output wire        hex7seg_dp,
-  output wire [3:0]  hex7seg_anode,
-  // output to VGA
-  output wire [3:0]  vga_red,
-  output wire [3:0]  vga_green,
-  output wire [3:0]  vga_blue,
-  output wire        vga_hsync,
-  output wire        vga_vsync,
-  // output to OV7670 camera
+
+  // OV7670 Camera
+  input  wire        ov7670_pclk,     // camera pixel clock
+  input  wire        ov7670_vsync,    // camera frame signal
+  input  wire        ov7670_href,     // camera pixel valid 
+  input  wire [7:0]  ov7670_data,     // camera D-data
   output wire        ov7670_scl,
   output wire        ov7670_sda,
   output wire        ov7670_xclk,
   output wire        ov7670_pwdn,
   output wire        ov7670_rst,
-  output wire        is_display_ready
+  output wire        is_display_ready,
+
+  // output to LED light
+  // output wire [5:0]  led_states, // debugging purpose
+
+  // output to 7-segment display
+  output wire [6:0]  hex7seg_pins,
+  output wire        hex7seg_dp,
+  output wire [3:0]  hex7seg_anode,
+
+  // output to VGA
+  output wire [3:0]  vga_red,
+  output wire [3:0]  vga_green,
+  output wire [3:0]  vga_blue,
+  output wire        vga_hsync,
+  output wire        vga_vsync
 );
 
   // Internal clocks
@@ -100,11 +104,11 @@ module top_level(
 
   // video frame buffer write: to pack RGB444 and write to memory
   video_frame_buffer_write u_video_buf_write (
-    .clk(pclk),
+    .clk(ov7670_pclk),
     .rst_n(rst_n),
-    .vsync(vsync),
-    .href(href),
-    .frame_din(camera_data),
+    .vsync(ov7670_vsync),
+    .href(ov7670_href),
+    .frame_din(ov7670_data),
     .mem_din(data_written),
     .mem_addr(addr_written),
     .mem_we(mem_write_enabled)
@@ -134,7 +138,7 @@ module top_level(
 
   // memory wrapper
   xilinx_blk_mem_gen_dual u_dual_memory (
-    .clka(pclk),
+    .clka(ov7670_pclk),
     .wea(mem_write_enabled),
     .addra(addr_written),
     .dina(data_written),
