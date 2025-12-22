@@ -20,7 +20,7 @@ set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
 set_property PACKAGE_PIN W5 [get_ports clk]
 set_property IOSTANDARD LVCMOS33 [get_ports clk]
-create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk]
+create_clock -period 10.000 -name clk -waveform {0.000 5.000} -add [get_ports clk]
 
 #################################################
 #                                               #
@@ -149,12 +149,11 @@ set_property IOSTANDARD LVCMOS33 [get_ports {href}]
 set_property PACKAGE_PIN P18 [get_ports {ov7670_sda}]
 set_property IOSTANDARD LVCMOS33 [get_ports {ov7670_sda}]
 # schematic_name = JC7
-set_property PACKAGE_PIN L17 [get_ports {camera_data[7]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {camera_data[7]}]
-# schematic_name = JC8
-set_property PACKAGE_PIN M19 [get_ports {pclk}]
+set_property PACKAGE_PIN L17 [get_ports {pclk}]
 set_property IOSTANDARD LVCMOS33 [get_ports {pclk}]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {pclk_IBUF}]
+# schematic_name = JC8
+set_property PACKAGE_PIN M19 [get_ports {camera_data[7]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {camera_data[7]}]
 # schematic_name = JC9
 set_property PACKAGE_PIN P17 [get_ports {vsync}]
 set_property IOSTANDARD LVCMOS33 [get_ports {vsync}]

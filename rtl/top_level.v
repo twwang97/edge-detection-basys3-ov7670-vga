@@ -134,11 +134,11 @@ module top_level(
 
   // memory wrapper
   xilinx_blk_mem_gen_dual u_dual_memory (
-    .clka(clk_50mhz),
+    .clka(pclk),
     .wea(mem_write_enabled),
     .addra(addr_written),
     .dina(data_written),
-    .clkb(clk_50mhz),
+    .clkb(clk_25mhz),
     .addrb(addr_read),
     .doutb(data_read)
   );
