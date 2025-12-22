@@ -1,4 +1,4 @@
-# FPGA Project: Edge Detection with Basys 3
+# FPGA Project: Real-time Edge Detection with Basys 3
 
 * Title: **Real‑time FPGA edge detection pipeline on a Basys 3 using an OV7670 camera and VGA output**
 * FPGA board Basys 3:  [Manual](https://digilent.com/reference/programmable-logic/basys-3/reference-manual) | [PDF](https://digilent.com/reference/_media/basys3:%20basys3_rm.pdf) | [JTAG-HS2](https://digilent.com/reference/_media/jtag_hs2:jtag-hs2_rm.pdf) | [Schematic](https://digilent.com/reference/_media/reference/programmable-logic/basys-3/basys-3_sch.pdf) | [Pinouts](https://www.nhn.ou.edu/~bumm/ELAB/Labs/Basys3_FGPA_pin_outs.pdf) | [XDC](https://digilent.com/reference/_media/basys3/basys3_master.zip)
@@ -69,6 +69,22 @@ source create_proj.tcl
 
 ---
 
+### Future Work
+
+* The following design usage shows **WNS > 0** after some timing [constraints](./constr/sys.xdc#L37) are added.
+
+![picture_design_usage_timing](./img/design_usage_timing.png)
+
+* Although my [timing report](./img/report_timing) does NOT present any critical issue, two warning messages are shown during synthesis and implementation.
+
+![picture_methodology](./img/methodology.png)
+
+* For example, the register-value pairs for my camera are initially saved in block RAMs, and my Verilog program exposes no register to such a memory block.
+
+* Currently, both `video_frame_buffer_write` and `video_frame_buffer_read` directly connect to memory blocks (provided by [Vivado IP](./rtl/xilinx_blk_mem_gen_dual.xci)) with `we` (write_enabled) signal. So I plan to implement `we` in my Verilog register table in the future.
+
+---
+
 ### Camera Connection
 
 #### OV7670 (CMOS camera)
@@ -78,8 +94,8 @@ source create_proj.tcl
 | null | 3V3 | 01 02 | DGND | null |
 | JC10 | SCL | 03 04 | SDA  | JC4 |
 | JC9  | VS  | 05 06 | HS   | JC3 |
-| JC8  | PLK | 07 08 | XLK  | JC2 |
-| JC7  | D7  | 09 10 | D6   | JC1 |
+| JC8  | D7  | 07 08 | XLK  | JC2 |
+| JC7  | PLK | 09 10 | D6   | JC1 |
 | JB10 | D5  | 11 12 | D4   | JB4 |
 | JB9  | D3  | 13 14 | D2   | JB3 |
 | JB8  | D1  | 15 16 | D0   | JB2 |

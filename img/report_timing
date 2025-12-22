@@ -1,0 +1,65 @@
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Mon Dec 22 23:42:15 2025
+| Host         : user_desktop running 64-bit Ubuntu 22.04.5 LTS
+| Command      : report_timing
+| Design       : top_level
+| Device       : 7a35t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.116ns  (required time - arrival time)
+  Source:                 u_video_buf_read/timing_inst/vsync_reg/C
+                            (rising edge-triggered cell FDPE clocked by clk_out25mhz_xilinx_clk_wiz_pll_50_25mhz  {rise@0.000ns fall@20.000ns period=40.000ns})
+  Destination:            vga_vsync
+                            (output port clocked by clk  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk
+  Path Type:              Max at Slow Process Corner
+  Requirement:            10.000ns  (clk rise@10.000ns - clk_out25mhz_xilinx_clk_wiz_pll_50_25mhz rise@0.000ns)
+  Data Path Delay:        5.489ns  (logic 3.959ns (72.134%)  route 1.530ns (27.866%))
+  Logic Levels:           1  (OBUF=1)
+  Output Delay:           6.500ns
+  Clock Path Skew:        2.394ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.000ns = ( 10.000 - 10.000 ) 
+    Source Clock Delay      (SCD):    -2.394ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.288ns  ((TSJ^2 + TIJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.100ns
+    Discrete Jitter          (DJ):    0.236ns
+    Phase Error              (PE):    0.156ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out25mhz_xilinx_clk_wiz_pll_50_25mhz rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    u_clock_gen/inst/clk_in1
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  u_clock_gen/inst/clkin1_ibufg/O
+                         net (fo=1, routed)           1.253     2.711    u_clock_gen/inst/clk_in1_xilinx_clk_wiz_pll_50_25mhz
+    PLLE2_ADV_X1Y0       PLLE2_ADV (Prop_plle2_adv_CLKIN1_CLKOUT1)
+                                                     -8.482    -5.770 r  u_clock_gen/inst/plle2_adv_inst/CLKOUT1
+                         net (fo=1, routed)           1.655    -4.115    u_clock_gen/inst/clk_out25mhz_xilinx_clk_wiz_pll_50_25mhz
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096    -4.019 r  u_clock_gen/inst/clkout2_buf/O
+                         net (fo=8270, routed)        1.625    -2.394    u_video_buf_read/timing_inst/clk_out25mhz
+    SLICE_X1Y29          FDPE                                         r  u_video_buf_read/timing_inst/vsync_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X1Y29          FDPE (Prop_fdpe_C_Q)         0.456    -1.938 r  u_video_buf_read/timing_inst/vsync_reg/Q
+                         net (fo=1, routed)           1.530    -0.408    vga_vsync_OBUF
+    R19                  OBUF (Prop_obuf_I_O)         3.503     3.095 r  vga_vsync_OBUF_inst/O
+                         net (fo=0)                   0.000     3.095    vga_vsync
+    R19                                                               r  vga_vsync (OUT)
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       10.000    10.000 r  
+                         clock pessimism              0.000    10.000
+                         clock uncertainty           -0.288     9.712
+                         output delay                -6.500     3.212
+  -------------------------------------------------------------------
+                         required time                          3.212
+                         arrival time                          -3.095
+  -------------------------------------------------------------------
+                         slack                                  0.116
